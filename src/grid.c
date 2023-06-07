@@ -10,7 +10,7 @@
 #define ALPHA_N 0.028
 #define ALPHA_M 0.147
 
-static char cell_states[] = " .-=coaA@#"; // implicit null character
+static char cell_states[] = " .,-~=coaA@#"; // implicit null character
 static const uint8_t cell_states_count = sizeof(cell_states) / sizeof(cell_states[0]) - 1; // sub 1 for \0
 
 // file local prototypes

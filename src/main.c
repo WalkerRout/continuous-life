@@ -53,7 +53,6 @@ int main(int argc, char *argv[]) {
 
   grid_free(&grid);
 
-
   return 0;
 }
 
@@ -63,7 +62,7 @@ static inline void sigint_exit(int sig) {
   (void) sig;
 
   printf("- removing lifeforms and shutting down...\n");
-
+  
   keep_alive = 0;
 }
 
