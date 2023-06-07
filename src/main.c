@@ -47,7 +47,8 @@ int main(int argc, char *argv[]) {
     grid_step(&grid);
     grid_print(&grid);
 
-    (void) printf("seed number - %ld\n", seed);
+    // TODO: figure out how to print uint64_t in ISO C???
+    (void) printf("seed number - %lu\n", (unsigned long) seed);
     sleep(100);
   }
 
