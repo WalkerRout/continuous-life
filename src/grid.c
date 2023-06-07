@@ -10,7 +10,7 @@
 #define ALPHA_N 0.028
 #define ALPHA_M 0.147
 
-static char cell_states[] = " .,-~=coaA@#"; // implicit null character
+static const char cell_states[] = " .,-~=coaA@#"; // implicit null character
 static const uint8_t cell_states_count = sizeof(cell_states) / sizeof(cell_states[0]) - 1; // sub 1 for \0
 
 // file local prototypes
@@ -40,6 +40,7 @@ inline void grid_init(Grid *grid, uint32_t width, uint32_t height) {
     .d2 = 0.445f,
     .dt = 0.05f
   };
+
   memcpy(&grid->cell_data, &cell_data, sizeof(CellData));
 
   grid->cells = (float*) calloc(width * height, sizeof(float));
