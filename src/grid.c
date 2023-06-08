@@ -60,7 +60,7 @@ void grid_print(Grid *grid) {
   for(size_t i = 0; i < height; ++i) {
     for(size_t j = 0; j < width; ++j) {
       char c = float_to_cell_state(grid->cells[i * width + j]);
-      printf(" %c%c ", c, c);
+      fprintf(stdout, "%c%c", c, c);
     }
     fputc('\n', stdout);
   }

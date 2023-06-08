@@ -11,11 +11,12 @@
 #define WIDTH  30
 #define HEIGHT 30
 
-static uint8_t keep_alive = 1; 
+static sig_atomic_t keep_alive = 1; 
 static Grid grid = {0};
 
 // file local prototypes
-static inline void sigint_exit(int sig);
+static inline void sigint_reset(int sig);
+static inline void sigtstp_exit(int sig);
 static inline void clear_screen(void);
 
 int main(int argc, char *argv[]) {
@@ -55,7 +56,8 @@ int main(int argc, char *argv[]) {
 
   // global set up
   srand(seed);
-  signal(SIGINT, sigint_exit);
+  signal(SIGINT, sigint_reset);
+  signal(SIGTSTP, sigtstp_exit);
 
   // main logic
   grid_init(&grid, width, height);
@@ -81,13 +83,27 @@ int main(int argc, char *argv[]) {
 
 // file local functions
 
-static inline void sigint_exit(int sig) {
+static inline void sigint_reset(int sig) {
   (void) sig;
 
-  (void) fprintf(stdout, "- removing lifeforms and shutting down...\n");
+  (void) fprintf(stdout, "- resetting simulation...\n");
+  
+  uint32_t width = grid.width;
+  uint32_t height = grid.height;
+
+  grid_free(&grid);
+  grid_init(&grid, width, height);
+  grid_randomize(&grid);
+}
+
+static inline void sigtstp_exit(int sig) {
+  (void) sig;
+
   keep_alive = 0;
+  (void) fprintf(stdout, "- exiting simulation...");
 }
 
 static inline void clear_screen(void) {
   (void) fprintf(stdout, "\033[1;1H");
 }
+
