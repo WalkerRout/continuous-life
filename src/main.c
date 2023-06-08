@@ -8,6 +8,9 @@
 
 #include "grid.h"
 
+#define WIDTH  30
+#define HEIGHT 30
+
 static uint8_t keep_alive = 1; 
 static Grid grid = {0};
 
@@ -20,22 +23,39 @@ int main(int argc, char *argv[]) {
 
   // prep seed
   // time returns seconds since epoch, updates seed *every second*
-  char *__seed_end;
+  char *__strtol_end;
   uint64_t seed = argc > 1
-    ? (uint64_t) strtol(argv[1], &__seed_end, 10)
+    ? (uint64_t) strtol(argv[1], &__strtol_end, 10)
     : (uint64_t) time(NULL);
+
+  if(seed == 0) seed = (uint64_t) time(NULL);
 
   if(errno == ERANGE) {
     (void) fprintf(stderr, "Error - invalid unsigned integer seed, please try again\n");
     exit(EXIT_FAILURE);
   }
 
+  const uint32_t width = argc > 2
+    ? (uint32_t) strtol(argv[2], &__strtol_end, 10)
+    : (uint32_t) WIDTH;
+
+  if(errno == ERANGE) {
+    (void) fprintf(stderr, "Error - invalid unsigned integer width, please try again\n");
+    exit(EXIT_FAILURE);
+  }
+
+  const uint32_t height = argc > 3
+    ? (uint32_t) strtol(argv[3], &__strtol_end, 10)
+    : (uint32_t) HEIGHT;
+
+  if(errno == ERANGE) {
+    (void) fprintf(stderr, "Error - invalid unsigned integer height, please try again\n");
+    exit(EXIT_FAILURE);
+  }
+
   // global set up
   srand(seed);
   signal(SIGINT, sigint_exit);
-
-  const uint32_t height = 30;
-  const uint32_t width = 30;
 
   // main logic
   grid_init(&grid, width, height);
@@ -49,10 +69,12 @@ int main(int argc, char *argv[]) {
 
     // TODO: figure out how to print uint64_t in ISO C???
     (void) printf("seed number - %lu\n", (unsigned long) seed);
-    sleep(100);
+    sleep(16);
   }
 
   grid_free(&grid);
+
+  fprintf(stdout, "\033[2J");
 
   return 0;
 }
@@ -68,6 +90,5 @@ static inline void sigint_exit(int sig) {
 }
 
 static inline void clear_screen(void) {
-  printf("\x1B[2J\x1B[1;1H");
-  fflush(stdout);
+  fprintf(stdout, "\033[1;1H");
 }
