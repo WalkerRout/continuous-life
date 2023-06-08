@@ -5,7 +5,7 @@ Run with:
 `make build`
 `./bin/continuous-life <OPTIONAL_POSITIONAL_SEED>`
 
-![Continuous Life Demo](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDJkYmNjM2UyYTljYTVkNjkyZjZmNTk4OTZiZmRjYzEyZTM1NDNiMCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/2Kk2Fa1n1XEgJggcwl/giphy.gif)
+![Continuous Life Demo](https://i.gyazo.com/5061f7f2e93dd0e234a3276834fda37c.gif)
 
 ### Interesting Formations
 
