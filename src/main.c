@@ -68,13 +68,13 @@ int main(int argc, char *argv[]) {
     grid_print(&grid);
 
     // TODO: figure out how to print uint64_t in ISO C???
-    (void) printf("seed number - %lu\n", (unsigned long) seed);
+    (void) fprintf(stdout, "seed number - %lu\n", (unsigned long) seed);
     sleep(16);
   }
 
   grid_free(&grid);
-
-  fprintf(stdout, "\033[2J");
+  
+  (void) fprintf(stdout, "\033[1;1H""\033[2J");
 
   return 0;
 }
@@ -84,11 +84,10 @@ int main(int argc, char *argv[]) {
 static inline void sigint_exit(int sig) {
   (void) sig;
 
-  printf("- removing lifeforms and shutting down...\n");
-  
+  (void) fprintf(stdout, "- removing lifeforms and shutting down...\n");
   keep_alive = 0;
 }
 
 static inline void clear_screen(void) {
-  fprintf(stdout, "\033[1;1H");
+  (void) fprintf(stdout, "\033[1;1H");
 }

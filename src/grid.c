@@ -6,7 +6,7 @@
 
 #include "grid.h"
 
-#define RADIUS_OUTSIDE 15
+#define RADIUS_OUTSIDE 12
 #define ALPHA_N 0.028
 #define ALPHA_M 0.147
 
